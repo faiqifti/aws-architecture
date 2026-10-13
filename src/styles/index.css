@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 246 247 249;
+  --surface: 255 255 255;
+  --surface2: 240 242 246;
+  --line: 224 228 235;
+  --ink: 22 30 45;
+  --muted: 84 96 114;
+  --brand: 255 153 0;
+  --brand-ink: 164 80 0;
+  --on-brand: 22 30 45;
+  --ok: 21 128 61;
+  --bad: 185 28 28;
+  --info: 29 78 216;
+  --warn: 161 98 7;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: 13 18 28;
+  --surface: 21 28 41;
+  --surface2: 30 39 56;
+  --line: 46 57 77;
+  --ink: 232 236 242;
+  --muted: 159 171 188;
+  --brand: 255 153 0;
+  --brand-ink: 255 176 64;
+  --on-brand: 22 30 45;
+  --ok: 74 222 128;
+  --bad: 248 113 113;
+  --info: 130 164 255;
+  --warn: 250 204 21;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--info));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  h1, h2, h3 {
+    @apply tracking-tight;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-line bg-surface shadow-card;
+  }
+  .btn {
+    @apply inline-flex min-h-[40px] items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-on-brand hover:brightness-95;
+  }
+  .btn-secondary {
+    @apply btn border border-line bg-surface text-ink hover:bg-surface2;
+  }
+  .btn-ghost {
+    @apply btn text-muted hover:bg-surface2 hover:text-ink;
+  }
+  .btn-danger {
+    @apply btn bg-bad text-white hover:brightness-95;
+  }
+  .label-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-wide text-muted;
+  }
+}
+
+/* Honour reduced-motion from the OS or from Settings. */
+html[data-motion='reduced'] *,
+html[data-motion='reduced'] *::before,
+html[data-motion='reduced'] *::after {
+  transition-duration: 0.001ms !important;
+  animation-duration: 0.001ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.toast-in { animation: toast-in 0.2s ease-out; }
